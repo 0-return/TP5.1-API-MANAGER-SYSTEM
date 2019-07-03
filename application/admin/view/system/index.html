@@ -1,0 +1,115 @@
+﻿<include file="public/top"/>
+</head>
+<body>
+	<div class="wap-container">
+		<include file="public/crumbs" />
+		<article class="Hui-admin-content clearfix">
+			<div class="panel">
+				<div class="panel-body">
+					<form action="" method="post" class="form form-horizontal" id="form-data-add">
+					<input type="hidden" name="id" value="{{$vo.id}}">
+						<div id="tab-system" class="HuiTab">
+							<div class="tabBar cl">
+							<span>系统设置</span>
+							<span>系统初始化</span>
+							</div>
+							<div class="tabCon">
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>系统超时：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="timeout" name="timeout" placeholder="控制在25个字、50个字节以内" value="{{$vo.timeout}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>ip池：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="ips" name="ips" placeholder="用隔开" value="{{$vo.ips}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>登陆失败限制：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="login_fail_max" name="login_fail_max" placeholder="次数为0不受限制" value="{{$vo.login_fail_max}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+								<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+									<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+									<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+								</div>
+							</div>
+							</div>
+							<div class="tabCon">
+								初始化数据库，文件目录...
+							</div>
+						</div>
+						
+						
+					</form>
+				</div>
+			</div>
+		</article>
+	</div>
+	<!--_footer 作为公共模版分离出去-->
+	<include file="public/footer-style"/>
+	<!--/_footer /作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/static/business/js/main.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});
+		$("#tab-system").Huitab();
+
+		$("#form-data-add").validate({
+			rules: {
+				web_url: {
+					required: true,
+				},
+				web_name: {
+					required: true,
+				},
+				upload: {
+					required: true,
+				},
+				keywords: {
+					required: true,
+				},
+				describe: {
+					required: true,
+				}
+			},
+			onkeyup: false,
+			focusCleanup: true,
+			success: "valid",
+			submitHandler: function(form){
+				$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('updateByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        //setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.msg,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			}
+		});
+	});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

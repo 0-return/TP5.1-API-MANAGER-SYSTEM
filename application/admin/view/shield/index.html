@@ -1,0 +1,81 @@
+﻿	<include file="public/top"/>
+</head>
+<body>
+	<div class="wap-container">
+		<include file="public/crumbs" />
+		<article class="Hui-admin-content clearfix">
+			<div class="panel">
+				<div class="panel-body">
+					<div id="tab-system" class="HuiTab">
+					<div class="tabBar cl">
+						<span>敏感词</span>
+						<span>ip池</span>
+					</div>
+					<form action="" method="post" class="form form-horizontal" id="form-shield-add">
+					<input type="hidden" name="id" value="{{$list.0.id}}">
+					<div class="tabCon">
+						<div class="row clearfix">
+							<textarea name="terms" class="textarea" style="width:100%; height:300px; resize:none">{{$list.0.terms}}</textarea>
+						</div>
+						
+					</div>
+					<div class="tabCon">
+						<div class="row clearfix">
+						<textarea  name="ips"  class="textarea" style="width:100%; height:300px; resize:none">{{$list.0.ips}}</textarea>
+						</div>
+					</div>
+					<div class="mt-20 text-c">
+						<button id="system-base-save" class="btn btn-success radius" type="submit"><i class="icon-ok"></i> 确定</button>
+					</div>
+					</form>
+					
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
+	<!--_footer 作为公共模版分离出去-->
+	<include file="public/footer-style"/>
+	<!--/_footer /作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/static/business/js/main.js"></script>
+	<!--/请在上方写此页面业务相关的脚本-->
+	<script type="text/javascript">
+		$('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});
+		$("#tab-system").Huitab();
+
+		$("#form-shield-add").validate({
+			
+			onkeyup: false,
+			focusCleanup: true,
+			success: "valid",
+			submitHandler: function(form){
+				$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('updateByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        //setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.msg,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			}
+		});
+	</script>
+</body>
+</html>

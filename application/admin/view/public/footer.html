@@ -1,0 +1,38 @@
+﻿    <Script type="text/javascript">
+    /*复制*/
+    function copy(id)
+    {
+    	var clipboard = new ClipboardJS('.copy_'+id, {
+            target: function() {
+                return document.querySelector('.copy_'+id);
+            }
+        });
+
+        clipboard.on('success', function(e) {
+            //console.log(e);
+            layer.msg('复制成功',{icon: 6,time:1000});
+        });
+
+        clipboard.on('error', function(e) {
+            //console.log(e);
+            layer.msg('浏览器不支持',{icon: 1,time:1000});
+        });
+    }
+    
+    //删除图片
+    function deleteMultiImage(elm){
+        $(elm).parent().remove();
+    }
+
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        })
+    });          
+     
+    </Script>
+    
+    </body>
+    </html>

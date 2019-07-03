@@ -1,0 +1,155 @@
+	<include file="public/top"/>
+</head>
+<body style="background-color:#fff">
+<div class="wap-container">
+	<div class="panel">
+		<div class="panel-body">
+			<form action="" method="post" class="form form-horizontal" id="form-data-add">
+				<input type="hidden" name="id" value="{{$vo.id}}">
+				<!-- <div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>用户账号：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="{{$vo.username}}" placeholder="" id="username" name="username">
+					</div>
+				</div> -->
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>用户名称：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="{{$vo.nickname}}" placeholder="" id="nickname" name="nickname">
+					</div>
+				</div>
+				
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>初始密码：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>确认密码：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="checkpass" name="checkpass">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>性别：</label>
+					<div class="form-controls col-xs-8 col-sm-9 skin-minimal">
+						<div class="radio-box">
+							<input name="sex" type="radio" id="sex-1"  value="1" <if condition="$vo['sex'] eq '1'">checked</if>>
+							<label for="sex-1">男</label>
+						</div>
+						<div class="radio-box">
+							<input type="radio" id="sex-2" name="sex" value="0" <if condition="$vo['sex'] eq '0'" >checked</if>>
+							<label for="sex-2">女</label>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>手机：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="{{$vo.phone}}" placeholder="" id="phone" name="phone">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>邮箱：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="{{$vo.email}}" placeholder="@" name="email" id="email">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">角色：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+						<select class="select" name="roleid" size="1">
+						<volist name="list" id="r">
+
+							<option value="{{$r.id}}" <if condition="$r['id'] eq $vo['roleid']" >selected</if>>{{$r.title}}</option>
+						</volist>
+						</select>
+						</span> </div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">备注：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<textarea name="content" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
+						<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+						<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<include file="public/footer-style"/>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+$(function(){
+	/* 通过iCheck插件，美化checkbox */
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	/* 表单验证，提交 */
+	$("#form-data-add").validate({
+		rules:{
+			username:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			sex:{
+				required:true,
+			},
+			phone:{
+				required:true,
+				isPhone:true,
+			},
+			email:{
+				required:true,
+				email:true,
+			},
+			roleid:{
+				required:true,
+			},
+			content: {
+				maxlength: 100,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('updateByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.message,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			
+		}
+	});
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+<include file="public/footer"/>

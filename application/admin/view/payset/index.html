@@ -1,0 +1,248 @@
+﻿<include file="public/top"/>
+</head>
+<body>
+	<div class="wap-container">
+		<include file="public/crumbs" />
+		<article class="Hui-admin-content clearfix">
+			<div class="panel">
+				<div class="panel-body">
+						<div id="tab-system" class="HuiTab">
+							<div class="tabBar cl">
+							<span>支付宝设置</span>
+							<span>微信支付设置</span>
+							</div>
+							
+							<div class="tabCon">
+								<form action="" method="post" class="form form-horizontal" id="form-alipay-add">
+								<input type="hidden" name="id" value="{{$list.0.id}}">
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>公司名称：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="company" name="company" placeholder="景烁科技" value="{{$list.0.company}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户id：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="merchant" name="merchant" placeholder="" value="{{$list.0.merchant}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>appid：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="app_id" name="app_id" placeholder="" value="{{$list.0.app_id}}" class="input-text">
+									</div>
+								</div>
+						
+								
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>网关地址：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="gateway" name="gateway" placeholder="" value="{{$list.0.gateway}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>公钥：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<textarea name="rsapublickey" class="textarea">{{$list.0.rsapublickey}}</textarea>
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>私钥：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<textarea name="rsaprivatekey" class="textarea">{{$list.0.rsaprivatekey}}</textarea>
+									</div>
+								</div>
+								
+								<div class="row clearfix">
+				                    <label class="form-label col-xs-4 col-sm-2">状态：
+				                    </label>
+				                    <div class="formControls col-xs-7 col-sm-9">
+				                        <span class="select-box">
+				                            <select class="select" id="status" name="status">
+				                                <option <if condition="$list['0']['status'] eq '1'">selected</if> value="1">正常</option>
+				                                <option <if condition="$list['0']['status'] eq '0'">selected</if> value="0" >禁用</option>
+				                            </select>
+				                            </span>
+				                    </div>
+				                </div>
+				                <div class="row clearfix">
+								<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+									<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+									<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+								</div>
+							</div>
+							</form>
+
+							</div>
+							<div class="tabCon">
+								<form action="" method="post" class="form form-horizontal" id="form-wx-add">
+								<input type="hidden" name="id" value="{{$list.1.id}}">
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>公司名称：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="company" name="company" placeholder="景烁科技" value="{{$list.1.company}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户id：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="merchant" name="merchant" placeholder="" value="{{$list.1.merchant}}" class="input-text">
+									</div>
+								</div>
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>appid：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="app_id" name="app_id" placeholder="" value="{{$list.1.app_id}}" class="input-text">
+									</div>
+								</div>
+							
+								
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>网关地址：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<input type="text" id="gateway" name="gateway" placeholder="" value="{{$list.1.gateway}}" class="input-text">
+									</div>
+								</div>
+								
+								<div class="row clearfix">
+									<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>私钥：</label>
+									<div class="form-controls col-xs-8 col-sm-9">
+										<textarea name="rsaprivatekey" class="textarea">{{$list.1.rsaprivatekey}}</textarea>
+									</div>
+								</div>
+								
+								<div class="row clearfix">
+				                    <label class="form-label col-xs-4 col-sm-2">状态：
+				                    </label>
+				                    <div class="formControls col-xs-7 col-sm-9">
+				                        <span class="select-box">
+				                            <select class="select" id="status" name="status">
+				                                <option <if condition="$list['1']['status'] eq '1'">selected</if> value="1" selected>正常</option>
+				                                <option <if condition="$list['1']['status'] eq '0'">selected</if> value="0" >禁用</option>
+				                            </select>
+				                            </span>
+				                    </div>
+				                </div>
+					            <div class="row clearfix">
+									<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+										<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+										<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+									</div>
+								</div>
+				               </form>
+							</div>
+				</div>
+			</div>
+		</article>
+	</div>
+	<!--_footer 作为公共模版分离出去-->
+	<include file="public/footer-style"/>
+	<!--/_footer /作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/static/business/js/main.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});
+		$("#tab-system").Huitab();
+
+		$("#form-alipay-add").validate({
+			rules: {
+				company: {
+					required: true,
+				},
+				gateway: {
+					required: true,
+				},
+				app_id: {
+					required: true,
+				},
+				merchant: {
+					required: true,
+				},
+				rsaprivatekey: {
+					required: true,
+				},
+				rsapublickey: {
+					required: true,
+				}
+			},
+			onkeyup: false,
+			focusCleanup: true,
+			success: "valid",
+			submitHandler: function(form){
+				$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('updateByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        //setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.msg,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			}
+		});
+
+		$("#form-wx-add").validate({
+			rules: {
+				company: {
+					required: true,
+				},
+				gateway: {
+					required: true,
+				},
+				app_id: {
+					required: true,
+				},
+				merchant: {
+					required: true,
+				},
+				rsaprivatekey: {
+					required: true,
+				},
+				rsapublickey: {
+					required: true,
+				}
+			},
+			onkeyup: false,
+			focusCleanup: true,
+			success: "valid",
+			submitHandler: function(form){
+				$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('updateByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        //setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.msg,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			}
+		});
+	});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

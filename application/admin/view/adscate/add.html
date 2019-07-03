@@ -1,0 +1,159 @@
+	<include file="public/top"/>
+</head>
+<body style="background-color:#fff">
+<div class="wap-container">
+	<div class="panel">
+		<div class="panel-body">
+			<form action="" method="post" class="form form-horizontal" id="form-data-add">
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">栏目分组：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+						<select class="select" name="pid" size="1">
+						<option value="0">顶级</option>
+						{{$options|raw}}
+						</select>
+						</span> </div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>投放者ID：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="广告投放者的身份id，一个身份id可以创建多个分组" id="uid" name="uid">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目名称：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="二级分类时的标题" id="title" name="title">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>投放地区：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<div id="distpicker3">
+						  <select name="province" class="select-box" style="width: 150px;"></select>
+						  <select name="city" class="select-box" style="width: 150px;"></select>
+						  <select name="area" class="select-box" style="width: 150px;"></select>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">位置：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="该位置不能重复" id="position" name="position">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">价格：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="￥" id="price" name="price">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">尺寸：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="200*100像素，不确定尺寸可不填写" id="size" name="size">
+					</div>
+				</div>
+				
+
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">使用类型：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box"  style="width: 150px;">
+						<select class="select" name="type" size="1">
+						<option value="0">试用</option>
+						<option value="1">正式</option>
+						</select>
+						</span> </div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开始时间：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" onfocus="WdatePicker({minDate:'{%y-10}-%M-#%d',dateFmt:'yyyy-MM-dd'})" class="input-text Wdate" autocomplete="off" value="" placeholder="开始时间" id="start_time" name="start_time">
+						</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>结束时间：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" onfocus="WdatePicker({minDate:'{%y-20}-%M-#%d'})" class="input-text Wdate" autocomplete="off" value="" placeholder="结束时间" id="end_time" name="end_time">
+
+						</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">描述：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<textarea name="describe" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
+						<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+						<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<include file="public/footer-style"/>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jQueryDistpicker20160621/js/distpicker.data.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jQueryDistpicker20160621/js/distpicker.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jQueryDistpicker20160621/js/main.js"></script>
+
+<script type="text/javascript">
+$("#distpicker3").distpicker({
+  province: "",
+  city: "",
+  district: ""
+});
+
+$(function(){
+	/* 通过iCheck插件，美化checkbox */
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	/* 表单验证，提交 */
+	$("#form-data-add").validate({
+		rules:{
+			title:{
+				required:true,
+			},
+			mca:{
+				required:true,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('addByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.msg,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			
+		}
+	});
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+<include file="public/footer"/>

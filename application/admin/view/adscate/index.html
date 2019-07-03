@@ -1,0 +1,79 @@
+﻿	<include file="public/top"/>
+</head>
+<body>
+	<div class="wap-container">
+		<include file="public/crumbs" />
+
+		<article class="Hui-admin-content clearfix">
+			
+			<div class="panel mt-20">
+				<div class="panel-body">
+					<div class="clearfix">
+						<span class="f-l">
+							<a href="javascript:;" onclick="_del('','{{:url('deleteByAjax')}}')" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+							<a href="javascript:;" onclick="_add('添加','{{:url('addbyajax')}}')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加</a>
+						</span>
+						<span class="f-r">共有数据：<strong>{{$count}}</strong> 条</span>
+					</div>
+					<div class="mt-20 clearfix">
+						<table class="table table-border table-bordered table-bg table-hover table-sort">
+							<thead>
+								<tr>
+									<th scope="col" colspan="100">内容分类</th>
+								</tr>
+								<tr class="text-c">
+									<th width="25"><input type="checkbox" name="" value=""></th>
+									<th width="40">ID</th>
+									<th width="90">标题</th>
+									<th width="40">层级</th>
+									<th width="50">单价</th>
+									<th width="150">描述</th>
+									<th width="150">投放地区</th>
+									<th width="150">投放时间</th>
+									<th width="40">状态</th>
+									<th width="100">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<volist name="list" id="vo" empty="暂时没有数据">
+								<tr class="text-c">
+									<td><input type="checkbox" value="{{$vo.id}}" name="id"></td>
+									<td>{{$vo.flag}}</td>
+									<td>{{$vo.title}}[{{$vo.size}}]</td>
+									<td><i class="Hui-iconfont">{{$vo.pid}}</i></td>
+									<td><i class="Hui-iconfont">￥{{$vo.price}}</i></td>
+									<td style="text-align: left">{{$vo.describe}}</td>
+									<td>
+									{{$vo.province}}{{$vo.city}}{{$vo.area}}
+									</td>
+									<td>
+									{{$vo.start_time|date="Y-m-d H:i:s"}}-{{$vo.end_time|date="Y-m-d H:i:s"}}
+									</td>
+									<td>
+										<if condition="($vo['status'] == -1)"><span class="label label-danger radius">已删除</span>
+											<elseif condition="$vo['status'] eq 0" /><span class="label label-danger radius">已禁用</span>
+											<else /> <span class="label label-success radius">使用中</span>
+										</if>
+									</td>
+									<td><a title="编辑" href="javascript:;" onclick="_edit('编辑','{{:url('showById')}}?id={{$vo.id}}')" class="ml-5"
+										 style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="_del(this,'{{:url('deleteByAjax')}}','{{$vo.id}}')"
+										 class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+												</tr>
+								</volist>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
+
+	<include file="public/footer-style"/>
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/laypage/1.2/laypage.js"></script>
+	<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/static/business/js/main.js"></script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

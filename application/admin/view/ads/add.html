@@ -1,0 +1,238 @@
+	<include file="public/top"/>
+</head>
+<body style="background-color:#fff">
+<div class="wap-container">
+	<div class="panel">
+		<div class="panel-body">
+			<form class="form form-horizontal" id="form-data-add">
+
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户选择：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+						<select class="select merchant" name="uid" size="1">
+						<volist name="$merchant" id="m">
+							<option value="{{$key}}">{{$m}}</option>
+						</volist>
+						</select>
+						</span> </div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:350px;">
+						<select class="select adscate" name="pid" size="1">
+						<option>请选择</option>
+						</select>
+						</span> 
+						<span class="ads-describe"> </span>
+						</div>
+				</div>
+				
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>投放地区：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<div id="distpicker3">
+						  <select name="province" class="select-box" style="width: 150px;"></select>
+						  <select name="city" class="select-box" style="width: 150px;"></select>
+						  <select name="area" class="select-box" style="width: 150px;"></select>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告图片：</label>
+					<div class="formControls col-xs-6 col-sm-7">
+						<input type="text" class="input-text" disabled="true" >
+						<div class="img-box a0b923820dcc509a-img"></div>
+					</div>
+					<div class="formControls col-xs-2 col-sm-3"><a title='图片显示' href='javascript:;' onclick="ajaxpage('1','a0b923820dcc509a-img');" class='btn btn-secondary radius' style='text-decoration:none'>选择图片</a></div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告标题：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="title" name="title">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用平台：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+						<select class="select" name="platform" size="1">
+						<option>请选择</option>
+						<for start="1" end="6"><option>{{$i}}</option></for>
+						</select>
+						</span> 
+						<span> 可以理解为在某个APP或某站投放的广告</span>
+						</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>使用场景：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+						<select class="select" name="type" size="1">
+						<option value="2" selected>软链接</option>
+						<option value="1">硬链接</option>
+						</select>
+						</span> 
+						<span> 硬链接指内部id跳转，软连接指通过网址跳转</span>
+						</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">跳转链接：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="默认软连接" id="link" name="link">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">排序值：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="0" placeholder="数字越大越靠前" id="sort" name="sort">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告软文：</label>
+					<div class="form-controls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+						<select class="select" name="slogans" size="1">
+						<volist name="$advertorials" id="as" key="k">
+							<option value="{{$k}}">{{$as}}</option>
+						</volist>
+						</select>
+						</span> </div>
+				</div>
+				<div class="row clearfix">
+					<label class="form-label col-xs-4 col-sm-2">广告描述：</label>
+					<div class="form-controls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="describe" name="describe">
+					</div>
+				</div>
+
+				
+				
+				<div class="row clearfix">
+					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+						<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+						<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
+						<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+<include file="public/footer-style"/>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jQueryDistpicker20160621/js/distpicker.data.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jQueryDistpicker20160621/js/distpicker.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_ADMIN__']}}/lib/jQueryDistpicker20160621/js/main.js"></script>
+
+
+<script type="text/javascript">
+$("#distpicker3").distpicker({
+  province: "",
+  city: "",
+  district: ""
+});
+
+
+$(document).ready(function(){
+	getAdsCate($(".merchant").val());
+	$(".merchant").change(function(){
+		getAdsCate($(this).val());
+	})
+})
+/**
+ * 根据商户id获取广告分类列表
+ * @param id
+ */
+var getAdsCate = function(id)
+{
+
+	$.ajax({
+		type:'POST',
+		url: "{{:url('getDataById')}}",
+		data:{'id':id},
+		dataType:"json",
+		success:function(data)
+		{
+			data = data.data;
+			option = '';
+			if (data != '') 
+			{
+				$.each(data,function(k,v){
+					option += "<option value="+v.id+" >"+v.title+"， 位置："+v.position+"，尺寸："+v.size+"</option>"
+				})
+				
+			}else{
+				option += "<option>请选择</option>"
+				
+			}
+			$(".adscate").empty().append(option);
+		},error:function()
+		{
+			layer.msg('系统繁忙!',{icon:5,time:1000});
+		}
+	})
+}
+
+
+$(function(){
+	/* 通过iCheck插件，美化checkbox */
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	// 是否评论
+	$('#is_comment').on('ifChecked', function(event){
+		$("#comment-datetime-start,#comment-datetime-end").attr("disabled",false).removeClass("disabled");
+	});
+	$('#is_comment').on('ifUnchecked', function(event){
+		$("#comment-datetime-start,#comment-datetime-end").attr("disabled",true).addClass("disabled");
+	});
+
+
+	// 文章摘要
+	$(".textarea-article").Huitextarealength({
+		minlength: 10,
+		maxlength: 500
+	});
+
+
+	/* 表单验证，提交 */
+	$("#form-data-add").validate({
+		rules:{
+			title:{
+				required:true,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "{{:url('addByAjax')}}",
+				dataType:"json",
+				success: function(data){
+                    if (data.code == 10000) {
+                        layer.msg(data.message,{icon:1,time:1000});
+                        setTimeout('parent.location.reload();',1500);
+                    }else{
+                        layer.msg(data.msg,{icon:5,time:1000});
+                     }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('系统繁忙!',{icon:5,time:1000});
+                },
+			});
+			
+		}
+	});
+
+});
+
+</script>
+<include file="public:img" />
+<!--/请在上方写此页面业务相关的脚本-->
+<include file="public/footer"/>

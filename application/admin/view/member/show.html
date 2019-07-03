@@ -1,0 +1,78 @@
+  <include file="public/top"/>
+</head>
+<body>
+  <div class="clearfix pd-20" style=" background-color:#5bacb6">
+    <eq name="$vo['face']" value=""><span style="display: inline-block; width: 64px; height: 64px; float: left; background: #{{$vo.username|substr='5'}}; line-height: 64px; text-align: center; font-size: 18px; font-weight: 900; color: #fff">{{$vo.username|substr='7'}}</span><else/><img class="avatar size-XL f-l" src="{{$vo.web_url}}{{$vo.face}}"></eq>
+    <dl style="margin-left:80px; color:#fff">
+      <dt><span class="f-18">{{$vo.username}}</span> <span class="pl-10 f-12">余额：<a href="javascript:;" style="text-decoration:none" onclick="cal(this,{{$vo.id}},'setDec','wallet');"><i class="Hui-iconfont">&#xe6a1;</i></a> <input placeholder="{{$vo.wallet}}" style="width: 60px" class="input-text radius size-MINI wallet" type="text" name="integral" value=""> <a href="javascript:;" style="text-decoration:none" onclick="cal(this,{{$vo.id}},'setInc','wallet');"><i class="Hui-iconfont">&#xe600;</i></a></span></dt>
+      <dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+    </dl>
+  </div>
+  <div class="pd-20">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th class="text-r" width="80">性别：</th>
+          <td><eq name="$vo['sex']" value="0">女</eq><eq name="$vo['sex']" value="1">男</eq><eq name="$vo['sex']" value="2">保密</eq></td>
+        </tr>
+        <tr>
+          <th class="text-r">手机：</th>
+          <td>{{$vo.username}}</td>
+        </tr>
+        <tr>
+          <th class="text-r">邮箱：</th>
+          <td>{{$vo.email}}</td>
+        </tr>
+        <tr>
+          <th class="text-r">地址：</th>
+          <td>{{$vo.province}}{{$vo.city}}{{$vo.area}}{{$vo.detail}}</td>
+        </tr>
+        <tr>
+          <th class="text-r">注册时间：</th>
+          <td>{{$vo.add_time|date="Y-m-d H:i:s"}}</td>
+        </tr>
+        <!-- <tr>
+          <th class="text-r">积分：</th>
+          <td>330</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+  <!--_footer 作为公共模版分离出去-->
+  <include file="public/footer-style"/>
+  <!--/_footer /作为公共模版分离出去-->
+  <script type="text/javascript">
+    function cal(e,id,gettype,amount){
+    if (gettype == 'setInc') 
+    {
+        number = $(e).prev().val();
+    }else{
+        number = $(e).next().val();
+    }
+    if (!number) {
+        layer.msg('请输入参数!',{icon:5,time:1500});
+    }else{
+        $.ajax({
+        type: 'POST',
+        url: '{{:url('_calByAjax')}}',
+        data: {'id':id,'active':gettype,'number':number,'field':amount},
+        dataType: 'json',
+        success: function(data){
+            if(data.code == 10000) {
+                layer.msg(data.message,{icon:1,time:1500});
+                setTimeout('location.reload();',1500);
+            }else{
+                layer.msg(data.message,{icon:5,time:1500});
+            }
+        },
+        error:function(data) {
+            layer.msg('系统繁忙!',{icon:5,time:1500});
+        },
+    });
+    }
+    
+}
+
+  </script>
+</body>
+</html>

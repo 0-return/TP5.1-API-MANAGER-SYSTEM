@@ -1,0 +1,15 @@
+﻿<dl id="menu-article" class="Hui-menu">
+<volist name="m_first" id="f">
+<dt class="Hui-menu-title"><i class="Hui-iconfont">&#xe60d;</i> {{$f.title}}<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i></dt>
+<dd class="Hui-menu-item">
+  <ul>
+    <volist name="m_child" id="c">
+      <if condition="$f['id'] == $c['pid']">
+      <li><a data-href="{{$Think.config.global_constant['__ADMIN_INDEX__']}}{{$c.mca}}" data-title="{{$c.title}}" href="javascript:void(0)">{{$c.title}}</a></li>
+    </if>
+    </volist>
+    </li>
+  </ul>
+</dd>
+</volist>
+</dl>
