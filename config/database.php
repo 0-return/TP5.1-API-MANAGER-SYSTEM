@@ -61,9 +61,9 @@ return [
     // 断线标识字符串
     'break_match_str' => [],
     
-   /* 'DB_C1' => [
+   'DB_C1' => [
         // 数据库类型
-        'type'        => 'mysql',
+        'type'        => '\think\mongo\Connection',
         // 服务器地址
         'hostname'    => 'localhost',
         // 数据库名
@@ -80,5 +80,5 @@ return [
         'prefix'      => 'db_',
 
         'query'           => '\\think\\db\\Query',
-    ],*/
+    ],
 ];

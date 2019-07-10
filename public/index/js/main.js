@@ -1,4 +1,7 @@
 
+
+var timestamp = Date.parse(new Date());;
+
 if(!window.localStorage) {
     console.log('当前浏览器不支持localStorage!')
 }else{
@@ -11,8 +14,8 @@ if(!window.localStorage) {
 $(function(){
 	var wh = $(window).height();
 	//左侧高度
-	$('.layui-left-box').height(wh - 60);
-
+	$('.layui-left').height(wh - 60);
+	$('.layui-left-url').height(wh-60-100);
 	//输出窗口高度
 	$('.response-window').height(wh - 400);
 	$('.format-html').height(wh - 405);
@@ -176,7 +179,7 @@ var request_post = function (param) {
     data:param,
     dataType:'JSON',
     success:function(data){
-    	console.log(data);
+    	//console.log(data);
     	$('.format-html').empty().html(data);
     	
     },error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -209,8 +212,32 @@ var get_param = function(name)
  */
 var getHistoryByUser = function()
 {
+	
+	day = timeStamp2String(timestamp);
+	data = localStorage.getItem('local_data_'+day);
+	if (!data) {return false;}  
+	res = data.split(",");
+	param = [];
+	html = '<div class="layui-colla-item" ><h2 class="layui-colla-title">今天</h2>';
+	for (var i = 0; i < res.length; i++) {
+		param = parseQueryString("s?"+res[i]);
+		switch(param['requestType'])
+		{
+			case 'GET':
+			colors = "#63BA79";
+			break;
 
+			case 'POST':
+			colors = "#FF5722";
+			break;
+		}
+		html += '<div class="layui-colla-content layui-show request-url-detail" onclick="openurl('+param['param']+');"><a href="javascript:;" title="'+param['url']+'"><span class="request-type" style="color:'+colors+'">'+param['requestType']+'</span>'+param['url']+'</a></div>';
+	}
+	html += '</div>';
+
+	$('#user-history').empty().append(html);
 }
+
 
 /**
  * 获取会员的历史测试记录
@@ -232,6 +259,10 @@ var getHistoryByMember = function()
   })
 }
 
+var openurl = function (param)
+{
+	console.log(param);
+}
 /**
  * 将获取到的单条数据格式化到表单中
  * @param  
@@ -273,15 +304,20 @@ var Saveas = function()
  * 将测试信息写入本地缓存
  * @param data 即将缓存的数据
  */
-function setStorage(arr)
+function setStorage(str)
 {
-	var dt = [];
-	/*dt = localStorage.getItem('local_data');
 
-	console.log(dt);
-	dt[dt.length] = arr;*/
-	dt[0] = '';
-	//获取本地标识
-	localStorage.setItem("local_data",JSON.stringify(dt)); 
-	console.log(localStorage.getItem('local_data'));
+	str += "&time="+timestamp;
+	day = timeStamp2String(timestamp);
+	var dt = [];
+	res = localStorage.getItem('local_data_'+day);
+	if (!res) 
+	{
+		localStorage.setItem('local_data_'+day,str);
+	}else{
+		dt.push(res);
+		dt.unshift(str);
+		localStorage.setItem('local_data_'+day,dt);
+		//console.log(localStorage.getItem('local_data_'+day));
+	}
 }

@@ -13,14 +13,14 @@
 <style type="text/css">
 	*{}
 </style>
-<body style=" margin: 0; padding: 0; ">
+<body>
 	<div class="layui-container" >  
 		<div class="layui-fluid">
 			<div class="layui-col-md12 layui-top">测试</div>
 		</div>
-		<div class="layui-fluid layui-left">
+		<div class="layui-fluid layui-full">
 			<!--左侧板块-->
-			<div class="layui-col-md2 layui-left-box"  style="border-right: 1px solid #DADBDC ;">
+			<div class="layui-col-md2 layui-left"  style="border-right: 1px solid #DADBDC ;">
 				<input type="text" name="title" style="border-radius: 20px; width: 90%; margin-left: 15px;" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
 
 				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -28,27 +28,27 @@
 						<li class="layui-this">历史记录</li>
 						<li>用户记录</li>
 					</ul>
-					<div class="layui-tab-content">
+					<div class="layui-tab-content layui-left-url" >
 						<!--历史记录-->
-						<div class="layui-tab-item layui-show" >
-							<div class="layui-collapse" lay-accordion>
-								<div class="layui-colla-item">
-									<h2 class="layui-colla-title">201904</h2>
-									<div class="layui-colla-content layui-show"><a href="javascript:;">http://baidu.com</a></div>
-								</div>
-								<div class="layui-colla-item">
+						<div class="layui-tab-item layui-show">
+							<div class="layui-collapse" id="user-history" lay-accordion>
+								<!-- <div class="layui-colla-item" >
+									<h2 class="layui-colla-title">今天</h2>
+									<div class="layui-colla-content layui-show"><a href="javascript:;">Request url</a></div>
+								</div> -->
+								<!-- <div class="layui-colla-item">
 									<h2 class="layui-colla-title">201903</h2>
 									<div class="layui-colla-content"><a href="javascript:;">http://baidu.com</a></div>
 								</div>
 								<div class="layui-colla-item">
 									<h2 class="layui-colla-title">201902</h2>
 									<div class="layui-colla-content"><a href="javascript:;">http://baidu.com</a></div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<!--用户记录-->
 						<div class="layui-tab-item">
-							<div class="layui-collapse" lay-accordion>
+							<div class="layui-collapse" id="member-history" lay-accordion>
 								<div class="layui-colla-item">
 									<h2 class="layui-colla-title">201905</h2>
 									<div class="layui-colla-content layui-show"><a href="javascript:;">http://baidu.com</a></div>
@@ -211,30 +211,26 @@
 				</div>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/tool.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/main.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/localstorage.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jsonlint.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json2xml.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.xml2json.js"></script>
 <script type="text/javascript">
 
-/**
- * 初始化
- * 
- */
-function init()
-{
-	
+$(function(){
+	getHistoryByUser();
 	renderLine();
 	$('.format-html').val('');		//默认数据
 	$('.format-json').html('');
 	$('.format-xml').html('');
-}
+})
 
 //转json格式
 $('#format-html-json').click(function(){
 	
     content = $('.response-window .format-html').html();
-    if (content!='') 
+    if (content != '') 
     {
     	//如果是xml,那么转换为json
     	if (content.substr(0,1) === '<' && content.substr(-1,1) === '>') 
@@ -255,9 +251,24 @@ $('#format-html-json').click(function(){
     }else{
     	$('.response-window .format-json').html('');
     }
-
-    
 })
+
+/**
+ * 将json转成xml
+ * 
+ */
+$('#format-html-xml').click(function(){
+	content = $('.response-window .format-html').html();
+	if (content != '') 
+	{
+		content = jsonlint.parse(unescape(content));
+		var result = $.json2xml(content);
+	    $('.response-window .format-xml').html(result);
+	}
+	
+})
+
+
 
 /**
  * 代码左侧收起功能
@@ -271,17 +282,6 @@ function renderLine(){
     }
     $('.format-json').html(line_num_html);
 }
-/**
- * 将json转成xml
- * 
- */
-$('#format-html-xml').click(function(){
-	content = $('.response-window .format-html').html();
-	content = jsonlint.parse(unescape(content));
-	var result = $.json2xml(content);
-    $('.response-window .format-xml').html(result);
-})
-
 
 
 </script>
