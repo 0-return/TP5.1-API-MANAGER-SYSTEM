@@ -54,7 +54,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 默认模块名
-    'default_module'         => 'admin',
+    'default_module'         => 'index',
     // 禁止访问模块
     'deny_module_list'       => ['common'],
     // 默认控制器名
@@ -130,9 +130,9 @@ return [
     'route_cache_option'     => [],
 
     'global_constant'        => [
-        '__ADMIN_INDEX__'   => '/admin',
         '__PUBLIC_ADMIN__'   => '/admin',
         '__PUBLIC_INDEX__'   => '/index',
+        '__ADMIN_INDEX__'    => '/admin',
     ],
 
     // 默认跳转页面对应的模板文件

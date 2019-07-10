@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>api</title>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/layui/layui.all.js"></script>
+<link rel="stylesheet" type="text/css" href="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/css/style.css">
+<style type="text/css">
+	*{}
+</style>
+<body style=" margin: 0; padding: 0; ">
+	<div class="layui-container" >  
+		<div class="layui-fluid">
+			<div class="layui-col-md12 layui-top">测试</div>
+		</div>
+		<div class="layui-fluid layui-left">
+			<!--左侧板块-->
+			<div class="layui-col-md2 layui-left-box"  style="border-right: 1px solid #DADBDC ;">
+				<input type="text" name="title" style="border-radius: 20px; width: 90%; margin-left: 15px;" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+
+				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+					<ul class="layui-tab-title">
+						<li class="layui-this">历史记录</li>
+						<li>用户记录</li>
+					</ul>
+					<div class="layui-tab-content">
+						<!--历史记录-->
+						<div class="layui-tab-item layui-show" >
+							<div class="layui-collapse" lay-accordion>
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title">201904</h2>
+									<div class="layui-colla-content layui-show"><a href="javascript:;">http://baidu.com</a></div>
+								</div>
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title">201903</h2>
+									<div class="layui-colla-content"><a href="javascript:;">http://baidu.com</a></div>
+								</div>
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title">201902</h2>
+									<div class="layui-colla-content"><a href="javascript:;">http://baidu.com</a></div>
+								</div>
+							</div>
+						</div>
+						<!--用户记录-->
+						<div class="layui-tab-item">
+							<div class="layui-collapse" lay-accordion>
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title">201905</h2>
+									<div class="layui-colla-content layui-show"><a href="javascript:;">http://baidu.com</a></div>
+								</div>
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title">201906</h2>
+									<div class="layui-colla-content"><a href="javascript:;">http://baidu.com</a></div>
+								</div>
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title">201907</h2>
+									<div class="layui-colla-content"><a href="javascript:;">http://baidu.com</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>  
+			</div>
+
+			<!--右侧板块-->
+			<div class="layui-col-md10" style=" padding-left: 5px;">
+				<div class="layui-tab " lay-filter="request-box" lay-allowClose="true">
+
+					<ul class="layui-tab-title layui-tab-li">
+						<li class="layui-this" lay-id="0000"><span>Untitled Request</span><span class="layui-badge-dot layui-bg-green"></span></li>
+					</ul>
+					<button type="button" data-type="tabAdd" class="layui-btn layui-btn-primary site-demo-active" style="border: none;position: absolute; right: 0px; top: 0px;"><i class="layui-icon">&#xe608;</i></button>
+
+					<div class="layui-tab-content" style="height: 100px; clear: both;">
+						<div class="layui-tab-item layui-show" >
+							<!--参数板块-->
+							<div class="layui-tab-item layui-show">
+								<div class="layui-col-md1 layui-form layui-form-pane">
+									<select name="requestType" lay-verify="required">
+										<option value="GET">GET</option>
+										<option value="POST">POST</option>
+									</select>
+								</div>
+								<div class="layui-col-md8"><input type="text" name="url" required  lay-verify="required" placeholder="输入请求连接" autocomplete="off" class="layui-input" value="https://pay.sdian.net/api/merchant/my"></div>
+								<div class="layui-col-md2"><button style="margin-left:2px; " class="layui-btn layui-btn-normal" type="button" id="sub">请求</button></div>
+							</div>
+
+							<div class="layui-col-md12">
+								<div class="layui-tab">
+									<ul class="layui-tab-title">
+										<li class="layui-this"><span>Params</span><span class="layui-badge-dot layui-bg-green"></span></li>
+										<!-- <li>Authorization</li> -->
+										<!-- <li>Headers</li> -->
+										<li>Body</li>
+										<!-- <li>Pre-requestion Script</li> -->
+										<!-- <li>Tests</li> -->
+									</ul>
+									<div class="layui-tab-content">
+										<!--参数列表开始-->
+										<div class="layui-tab-item layui-show param-list">
+											<table class="layui-table">
+												<thead>
+													<tr>
+														<th width="20"></th>
+														<th>KEY</th>
+														<th>VALUE</th>
+														<th>DESCRIPTION</th>
+														<th width="20" colspan="2"><a href="javascript:;">...</a></th>
+														<th width="60"><a href="javascript:;">Bulk Edit</a></th>
+													</tr> 
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<div class="layui-form">
+																<input type="checkbox" name="id" title="" lay-skin="primary" checked />
+															</div>
+														</td>
+														<td>
+															<input type="text" name="key" required  lay-verify="required" placeholder="Key" autocomplete="off" class="layui-input" value="">
+														</td>
+														<td>
+															<input type="text" name="value" required  lay-verify="required" placeholder="Value" autocomplete="off" class="layui-input" value="">
+														</td>
+														<td colspan="3">
+															<input type="text" name="description" required  lay-verify="required" placeholder="Description" autocomplete="off" class="layui-input">
+															<td>
+																<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut">
+																	<i class="layui-icon">&#xe640;</i>
+																</button>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<!--参数列表结束-->
+											<!-- <div class="layui-tab-item">Authorization</div> -->
+											<!-- <div class="layui-tab-item">Headers</div> -->
+											<div class="layui-tab-item">
+												<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+													<ul class="layui-tab-title">
+														<li class="layui-this">none</li>
+												    	<li>form-data</li>
+												    	<li>x-www-form-urlencoded</li>
+												    	<li>raw</li>
+												    	<li>binary</li>
+												  	</ul>
+												  	<div class="layui-tab-content">
+														<div class="layui-tab-item layui-show param-list-body-item-p"><p><span>没有参数</span></p></div>
+													    <div class="layui-tab-item">
+															
+													    </div>
+													    <div class="layui-tab-item">
+
+													    </div>
+													    <div class="layui-tab-item">
+
+													    </div>
+													    <div class="layui-tab-item param-list-body-item-p">
+
+													    </div>
+												  	</div>
+												</div>  
+												
+												</div>
+												<!-- <div class="layui-tab-item">Pre-requestion Script</div> -->
+												<!-- <div class="layui-tab-item">Tests</div> -->
+											</div>
+										</div>
+									</div>
+									<!--参数板块-->
+									<div class="layui-col-md12">
+										<div class="layui-progress">
+											<div class="layui-progress-bar" lay-percent="100%"></div>
+										</div>
+									</div>
+									<!--输出板块-->
+									<div class="layui-col-md12">
+										<div class="layui-tab">
+											<ul class="layui-tab-title">
+												<li class="layui-this" id="format-html-pretty">Pretty</li>
+												<li id="format-html-json">JSON</li>
+												<li id="format-html-xml">XML</li>
+												
+											</ul>
+											<div class="layui-tab-content response-window">
+												<div class="layui-tab-item layui-show">
+													<div class="format-html"></div>
+												</div>
+												<div class="layui-tab-item">
+													<div class="format-json" id="json-target" style=" padding: 1px; white-space: pre-line;word-wrap:break-word;"></div>
+												</div>
+												<div class="layui-tab-item">
+													<textarea class="format-xml"></textarea>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<!--输出板块-->
+								</div>
+							</div>
+						</div>
+						<!--右侧板块-->
+					</div>
+				</div>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/tool.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/main.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jsonlint.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json2xml.js"></script>
+<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.xml2json.js"></script>
+<script type="text/javascript">
+
+/**
+ * 初始化
+ * 
+ */
+function init()
+{
+	
+	renderLine();
+	$('.format-html').val('');		//默认数据
+	$('.format-json').html('');
+	$('.format-xml').html('');
+}
+
+//转json格式
+$('#format-html-json').click(function(){
+	
+    content = $('.response-window .format-html').html();
+    if (content!='') 
+    {
+    	//如果是xml,那么转换为json
+    	if (content.substr(0,1) === '<' && content.substr(-1,1) === '>') 
+    	{
+    		try{
+				var json_obj = $.xml2json(content);
+				content = JSON.stringify(json_obj);
+    		}catch(e){
+ 				result = '解析错误：<span style="color: #f1592a;font-weight:bold;">' + e.message + '</span>';
+                current_json_str = result;
+                $('.response-window .format-json').html(result);
+                return false;
+    		}
+    	}
+
+        result = new JSONFormat(content).toString();
+    	$('.response-window .format-json').html(result);
+    }else{
+    	$('.response-window .format-json').html('');
+    }
+
+    
+})
+
+/**
+ * 代码左侧收起功能
+ * 
+ */
+function renderLine(){
+    var line_num = $('#json-target').height()/20;
+    var line_num_html = "";
+    for (var i = 1; i < line_num+1; i++) {
+        line_num_html += "<div>"+i+"<div>";
+    }
+    $('.format-json').html(line_num_html);
+}
+/**
+ * 将json转成xml
+ * 
+ */
+$('#format-html-xml').click(function(){
+	content = $('.response-window .format-html').html();
+	content = jsonlint.parse(unescape(content));
+	var result = $.json2xml(content);
+    $('.response-window .format-xml').html(result);
+})
+
+
+
+</script>
+
+</body>
+</html>

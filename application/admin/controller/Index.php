@@ -39,8 +39,8 @@ class Index extends Init
     public function login()
     {
         if (Request::isPost()){
-            //$code = $this->checkCode();
-            $code = true;
+            $code = $this->checkCode();
+            //$code = true;
             $login = $this->checkLogin();
 
             if ($login && $code){

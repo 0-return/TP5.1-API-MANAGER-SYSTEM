@@ -70,6 +70,12 @@ function Curl($url, $params = false, $ispost = 0)
     curl_setopt($ch, CURLOPT_TIMEOUT, 60);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_SSLVERSION, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
     if ($ispost) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
@@ -81,14 +87,17 @@ function Curl($url, $params = false, $ispost = 0)
             curl_setopt($ch, CURLOPT_URL, $url);
         }
     }
+
     $response = curl_exec($ch);
+
     if ($response === FALSE) {
-        //echo "cURL Error: " . curl_error($ch);
+        echo "cURL Error: " . curl_error($ch);
         return false;
     }
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
     curl_close($ch);
+
     return $response;
 }
 
