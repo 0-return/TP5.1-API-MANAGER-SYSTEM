@@ -76,7 +76,7 @@
 					</ul>
 					<button type="button" data-type="tabAdd" class="layui-btn layui-btn-primary site-demo-active" style="border: none;position: absolute; right: 0px; top: 0px;"><i class="layui-icon">&#xe608;</i></button>
 
-					<div class="layui-tab-content" style="height: 100px; clear: both;">
+					<div class="layui-tab-content" style="clear: both;">
 						<div class="layui-tab-item layui-show" >
 							<!--参数板块-->
 							<div class="layui-tab-item layui-show">
@@ -90,86 +90,161 @@
 								<div class="layui-col-md2"><button style="margin-left:2px; " class="layui-btn layui-btn-normal" type="button" id="sub">请求</button></div>
 							</div>
 
-							<div class="layui-col-md12">
-								<div class="layui-tab">
-									<ul class="layui-tab-title">
+							<div class="layui-col-md12" >
+								<div class="layui-tab" lay-filter="param-list-select">
+									<ul class="layui-tab-title ">
 										<li class="layui-this"><span>Params</span><span class="layui-badge-dot layui-bg-green"></span></li>
 										<!-- <li>Authorization</li> -->
 										<!-- <li>Headers</li> -->
-										<li>Body</li>
+										<li><span>Body</span></li>
 										<!-- <li>Pre-requestion Script</li> -->
 										<!-- <li>Tests</li> -->
 									</ul>
-									<div class="layui-tab-content">
+									<div class="layui-tab-content" style="min-height: 100px;">
 										<!--参数列表开始-->
-										<div class="layui-tab-item layui-show param-list">
-											<table class="layui-table">
-												<thead>
-													<tr>
-														<th width="20"></th>
-														<th>KEY</th>
-														<th>VALUE</th>
-														<th>DESCRIPTION</th>
-														<th width="20" colspan="2"><a href="javascript:;">...</a></th>
-														<th width="60"><a href="javascript:;">Bulk Edit</a></th>
-													</tr> 
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<div class="layui-form">
-																<input type="checkbox" name="id" title="" lay-skin="primary" checked />
-															</div>
-														</td>
-														<td>
-															<input type="text" name="key" required  lay-verify="required" placeholder="Key" autocomplete="off" class="layui-input" value="">
-														</td>
-														<td>
-															<input type="text" name="value" required  lay-verify="required" placeholder="Value" autocomplete="off" class="layui-input" value="">
-														</td>
-														<td colspan="3">
-															<input type="text" name="description" required  lay-verify="required" placeholder="Description" autocomplete="off" class="layui-input">
+										<div class="layui-tab-item layui-show param-list-0">
+											<div class="layui-tab layui-tab-brief" lay-filter="param-list-0">
+												<ul class="layui-tab-title">
+													<li class="layui-this">form-data</li>
+											  	</ul>
+											<div class="layui-tab-content">
+												<div class="layui-tab-item layui-show">
+													<table class="layui-table">
+													<thead>
+														<tr>
+															<th width="20"></th>
+															<th>KEY</th>
+															<th>VALUE</th>
+															<th>DESCRIPTION</th>
+															<th width="20" colspan="2"><a href="javascript:;">...</a></th>
+															<th width="60"><a href="javascript:;">Bulk Edit</a></th>
+														</tr> 
+													</thead>
+													<tbody>
+														<tr>
 															<td>
-																<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut">
-																	<i class="layui-icon">&#xe640;</i>
-																</button>
+																<div class="layui-form">
+																	<input type="checkbox" name="id" title="" lay-skin="primary" checked />
+																</div>
 															</td>
+															<td>
+																<input type="text" name="key" required  lay-verify="required" placeholder="Key" autocomplete="off" class="layui-input" value="">
+															</td>
+															<td>
+																<input type="text" name="value" required  lay-verify="required" placeholder="Value" autocomplete="off" class="layui-input" value="">
+															</td>
+															<td colspan="3">
+																<input type="text" name="description" required  lay-verify="required" placeholder="Description" autocomplete="off" class="layui-input">
+																<td>
+																	<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut">
+																		<i class="layui-icon">&#xe640;</i>
+																	</button>
+																</td>
 														</tr>
 													</tbody>
-												</table>
-											</div>
-											<!--参数列表结束-->
-											<!-- <div class="layui-tab-item">Authorization</div> -->
-											<!-- <div class="layui-tab-item">Headers</div> -->
-											<div class="layui-tab-item">
-												<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-													<ul class="layui-tab-title">
-														<li class="layui-this">none</li>
-												    	<li>form-data</li>
-												    	<li>x-www-form-urlencoded</li>
-												    	<li>raw</li>
-												    	<li>binary</li>
-												  	</ul>
-												  	<div class="layui-tab-content">
-														<div class="layui-tab-item layui-show param-list-body-item-p"><p><span>没有参数</span></p></div>
-													    <div class="layui-tab-item">
-															
-													    </div>
-													    <div class="layui-tab-item">
-
-													    </div>
-													    <div class="layui-tab-item">
-
-													    </div>
-													    <div class="layui-tab-item param-list-body-item-p">
-
-													    </div>
-												  	</div>
-												</div>  
-												
+													</table>
 												</div>
-												<!-- <div class="layui-tab-item">Pre-requestion Script</div> -->
-												<!-- <div class="layui-tab-item">Tests</div> -->
+											</div>
+										</div>
+										</div>
+										<!--参数列表结束-->
+										
+										<!-- <div class="layui-tab-item">Authorization</div> -->
+										<!-- <div class="layui-tab-item">Headers</div> -->
+										<div class="layui-tab-item param-list-1">
+											<div class="layui-tab layui-tab-brief" lay-filter="param-list-1">
+												<ul class="layui-tab-title">
+													<li class="layui-this">none</li>
+											    	<li>form-data</li>
+											    	<li>x-www-form-urlencoded</li>
+											    	<li>raw</li>
+											    	<li>binary</li>
+											  	</ul>
+											  	<div class="layui-tab-content">
+													<div class="layui-tab-item layui-show param-list-body-item-p"><p><span>没有参数</span></p></div>
+												    <div class="layui-tab-item">
+														<table class="layui-table">
+															<thead>
+																<tr>
+																	<th width="20"></th>
+																	<th>KEY</th>
+																	<th>VALUE</th>
+																	<th>DESCRIPTION</th>
+																	<th width="20" colspan="2"><a href="javascript:;">...</a></th>
+																	<th width="60"><a href="javascript:;">Bulk Edit</a></th>
+																</tr> 
+															</thead>
+															<tbody>
+																<tr>
+																	<td>
+																		<div class="layui-form">
+																			<input type="checkbox" name="id" title="" lay-skin="primary" checked />
+																		</div>
+																	</td>
+																	<td>
+																		<input type="text" name="key" required  lay-verify="required" placeholder="Key" autocomplete="off" class="layui-input" value="">
+																	</td>
+																	<td>
+																		<input type="text" name="value" required  lay-verify="required" placeholder="Value" autocomplete="off" class="layui-input" value="">
+																	</td>
+																	<td colspan="3">
+																		<input type="text" name="description" required  lay-verify="required" placeholder="Description" autocomplete="off" class="layui-input">
+																	<td>
+																	
+																		<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut">
+																			<i class="layui-icon">&#xe640;</i>
+																		</button>
+																	</td>	
+																		
+																	</tr>
+																</tbody>
+															</table>
+												    </div>
+												    <div class="layui-tab-item">
+												    	<table class="layui-table">
+															<thead>
+																<tr>
+																	<th width="20"></th>
+																	<th>KEY</th>
+																	<th>VALUE</th>
+																	<th>DESCRIPTION</th>
+																	<th width="20" colspan="2"><a href="javascript:;">...</a></th>
+																	<th width="60"><a href="javascript:;">Bulk Edit</a></th>
+																</tr> 
+															</thead>
+															<tbody>
+																<tr>
+																	<td>
+																		<div class="layui-form">
+																			<input type="checkbox" name="id" title="" lay-skin="primary" checked />
+																		</div>
+																	</td>
+																	<td>
+																		<input type="text" name="key" required  lay-verify="required" placeholder="Key" autocomplete="off" class="layui-input" value="">
+																	</td>
+																	<td>
+																		<input type="text" name="value" required  lay-verify="required" placeholder="Value" autocomplete="off" class="layui-input" value="">
+																	</td>
+																	<td colspan="3">
+																		<input type="text" name="description" required  lay-verify="required" placeholder="Description" autocomplete="off" class="layui-input">
+																		<td>
+																			<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut">
+																				<i class="layui-icon">&#xe640;</i>
+																			</button>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+												    </div>
+												    <div class="layui-tab-item">
+												    	<textarea class="textarea"></textarea>
+												    </div>
+												    <div class="layui-tab-item"></div>
+											  	</div>
+											</div>
+											</div>
+											<!-- <div class="layui-tab-item param-list-2">Pre-requestion Script</div> -->
+											<!-- <div class="layui-tab-item param-list-3">Tests</div> -->
 											</div>
 										</div>
 									</div>
@@ -216,6 +291,7 @@
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jsonlint.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json2xml.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.xml2json.js"></script>
+
 <script type="text/javascript">
 
 $(function(){

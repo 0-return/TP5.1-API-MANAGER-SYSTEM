@@ -26,6 +26,7 @@ class Index extends Init
      */
     public function request($data)
     {
+        
         $param = http_build_query(json_decode($data['param'],1));
         if ($data['requestType'] == 'POST')
         {

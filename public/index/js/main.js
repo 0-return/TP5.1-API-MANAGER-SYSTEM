@@ -1,28 +1,13 @@
 
 
-var timestamp = Date.parse(new Date());;
+var localData = [];										//本地缓存数据
+var timestamp = Date.parse(new Date());;				//时间戳
 
-if(!window.localStorage) {
+if(!window.localStorage) {								//检查缓存是否可用
     console.log('当前浏览器不支持localStorage!')
 }else{
 	console.log('重要数据请保存到账户下，避免数据丢失!')
 }
-
-/**
- * 设置高度
- */
-$(function(){
-	var wh = $(window).height();
-	//左侧高度
-	$('.layui-left').height(wh - 60);
-	$('.layui-left-url').height(wh-60-100);
-	//输出窗口高度
-	$('.response-window').height(wh - 400);
-	$('.format-html').height(wh - 405);
-	$('.format-json').height(wh - 405);
-	$('.format-xml').height(wh - 405);
-	$('.format-text').height(wh - 405);
-})
 
 
 /**
@@ -55,14 +40,80 @@ layui.use(['element', 'layer', 'form'], function(){
 		element.tabChange('request-box', tabId);
 		}
 	}
+
+	//默认父选项卡
+	$(window).load(function(){
+		id = '0';
+		//id = $('.param-list-select li').index();
+		pl = $('.param-list-select li').parent().parent().find('.param-list-'+id+' li');
+		
+		if (pl.length != 0) 
+		{
+			
+			n = pl.size();
+			for (var i = 0; i < n; i++) {
+				pl.eq(i).attr('data-id_'+id,i);
+				obj = $('.param-list-'+id+' li').parent().parent().find('.layui-tab-item').eq(i).find('table');
+				listParamBox(obj);
+			}
+
+			//将参数绑定到提交按钮上
+			$('#sub').attr('data-pid',id);
+		}
+	})
+	//监听父选项卡
+	element.on('tab(param-list-select)', function(){
+	   id = $(this).index();
+	   //初始话下级选项卡
+		pl = $(this).parent().parent().find('.param-list-'+id+' li');
+		//console.log(pl);
+		if (pl.length != 0) 
+		{
+			n = pl.size();
+			for (var i = 0; i < n; i++) {
+				pl.eq(i).attr('data-id_'+id,i);
+
+				obj = $('.param-list-'+id+' li').parent().parent().find('.layui-tab-item').eq(i).find('table');
+				listParamBox(obj);
+			}
+			//将参数绑定到提交按钮上
+			$('#sub').attr('data-pid',id);
+		}
+	});
+	
+
+	//监听子选项卡
+	element.on('tab(param-list-1)', function(){
+	    id = this.getAttribute('data-id_1');
+	    $('#sub').attr('data-id',id);
+	});
+
 });
 
 /**
- * 添加参数列表前的html处理
+ * 设置界面高度
  */
 $(function(){
-	obj = $('.param-list tbody');
+	var wh = $(window).height();
+	//左侧高度
+	$('.layui-left').height(wh - 60);
+	$('.layui-left-url').height(wh-60-100);
+	//输出窗口高度
+	$('.response-window').height(wh - 400);
+	$('.format-html').height(wh - 405);
+	$('.format-json').height(wh - 405);
+	$('.format-xml').height(wh - 405);
+	$('.format-text').height(wh - 405);
+})
 
+
+/**
+ * 添加参数列表
+ */
+var listParamBox =  function(obj)
+{
+	
+	//监听输入框值的变化
 	$(obj).on("input propertychange",function(){
 		
 		//监听最后一组元素的值
@@ -72,24 +123,21 @@ $(function(){
 		if (key.length > 0 || value.length > 0 || description.length > 0) 
 	    {
 	    	//检查删除按钮状态
-	    	console.log($(obj).children('tr').size());
-			$(obj).children('tr').size() > 0?$(obj).find('.param-list-delbut').show():$(obj).find('.param-list-delbut').hide();
+	    	//console.log($(obj).children('tr').size());
+			$(obj).children('tbody').size() > 0?$(obj).find('.param-list-delbut').show():$(obj).find('.param-list-delbut').hide();
 	    	//创建html
 	    	//console.log(str);
 	    	createParamBox(obj);
 	    	//绑定事件
-	    	$(obj).find('tr  td  button').off('click').on('click',function(){
+	    	$(obj).find('tr td button').off('click').on('click',function(){
 	    		delParamBox(this);
 	    	})
 	    }
 	})
-
-	
-})
-
+}
 
 /**
- * 添加参数列表
+ * 参数列表模块
  */
 var createParamBox = function(obj){
 	str = '<tr>'
@@ -134,37 +182,51 @@ var delParamBox = function(obj) {
 	$(obj).parents('tr').remove();
 	
 }
-
+/**
+ * 开始提交参数
+ */
 $('#sub').click(function(){
-  str = '';
-  ///提交数据的配置
-  requestType = $("select[name='requestType']").val();
-  url = $("input[name='url']").val();
+	json = {};
+	input = [];
+	//提交数据的配置
+	input['url_id'] = timestamp+Math.ceil(Math.random()*1000);
+	input['requestType'] = $("select[name='requestType']").val();
+	input['url'] = $("input[name='url']").val();
+	input['timestamp'] = timestamp;
+	//处理提交的参数
+	key = get_param('key');
+	value = get_param('value');
+	description = get_param('description');
 
-  //提交的参数
-  key = get_param('key');
-  value = get_param('value');
-  description = get_param('description');
-  
-  param = '{';
-  for (var i = 0; i < key.length; i++) {
-    
-    if (key[i] != '') 
-    {
-      param += '"'+key[i]+'":"'+value[i]+'",'
-    }
-  }
-  var reg=/,$/gi;
-  param = param.replace(reg, '');
-  param += '}';
+	jsonStr = '{';
+	for (var i = 0; i < key.length; i++) {
 
-  str += "requestType="+requestType+"&url="+url+"&param="+param;
-  //返回数据的配置
-  request_post(str);
+		if (key[i] != '') 
+		{
+		  jsonStr += '"'+key[i]+'":"'+value[i]+'",';
+		}
+	}
+	var reg=/,$/gi;
+	jsonStr = jsonStr.replace(reg, '');
+	jsonStr += '}';
+	input['jsonStr'] = jsonStr;
 
-   //写入缓存
-   setStorage(str);
-   
+	json.requestType = input['requestType'];
+	json.url = input['url'];
+	json.url_id = input['url_id'];
+	json.param = input['jsonStr'];
+
+	try{
+		//提交服务器
+		request(json)
+		//写入缓存
+		setStorage(json);
+	}catch(e)
+	{
+		alert(e);
+	}
+	
+
 })
 
 /**
@@ -172,20 +234,21 @@ $('#sub').click(function(){
  * @param  
  * @return 
  */
-var request_post = function (param) {
-  $.ajax({
-    type:'POST',
-    url:'/index/index/begin',
-    data:param,
-    dataType:'JSON',
-    success:function(data){
-    	//console.log(data);
-    	$('.format-html').empty().html(data);
-    	
-    },error:function(XMLHttpRequest, textStatus, errorThrown){
-    	$('.format-html').html('没有返回数据');
-    }
-  })
+var request = function (data) {
+
+	$.ajax({
+		type:'POST',
+		url:'/index/index/begin',
+		data:data,
+		dataType:'JSON',
+		success:function(data){
+			
+			$('.format-html').empty().html(data);
+			
+		},error:function(XMLHttpRequest, textStatus, errorThrown){
+			$('.format-html').html('没有返回数据');
+		}
+	})
 }
 
 
@@ -204,24 +267,42 @@ var get_param = function(name)
     return arr;
 }
 
+/**
+ * 获取本地历史记录保持在数组中准备使用
+ * @param key 为空则获取全部
+ * @return 
+ */
+var getLocalData = function(key = '')
+{
+	newArr = [];
+	day = timeStamp2String(timestamp);
+	data = localStorage.getItem('local_data_'+day);
+	if (!data) {return false;}  
+	res = data.split("|");
+
+	for (var i = 0; i < res.length; i++) 
+	{
+		json = JSON.parse(res[i]);
+		newArr[json.url_id] = json;
+	}
+	return key == ''?newArr:newArr[key];
+}
 
 /**
- * 获取游客的历史测试记录
+ * 获取游客的历史测试记录()
  * @param  
  * @return 
  */
 var getHistoryByUser = function()
 {
-	
-	day = timeStamp2String(timestamp);
-	data = localStorage.getItem('local_data_'+day);
-	if (!data) {return false;}  
-	res = data.split(",");
-	param = [];
+
+	res = getLocalData();
 	html = '<div class="layui-colla-item" ><h2 class="layui-colla-title">今天</h2>';
-	for (var i = 0; i < res.length; i++) {
-		param = parseQueryString("s?"+res[i]);
-		switch(param['requestType'])
+	for (let i in res) {
+		
+		json = res[i];
+		colors = '#63BA79';
+		switch(json.requestType)
 		{
 			case 'GET':
 			colors = "#63BA79";
@@ -231,7 +312,7 @@ var getHistoryByUser = function()
 			colors = "#FF5722";
 			break;
 		}
-		html += '<div class="layui-colla-content layui-show request-url-detail" onclick="openurl('+param['param']+');"><a href="javascript:;" title="'+param['url']+'"><span class="request-type" style="color:'+colors+'">'+param['requestType']+'</span>'+param['url']+'</a></div>';
+		html += '<div class="layui-colla-content  layui-show request-url-detail" onclick="openurl(\''+json.url_id+'\');"><a href="javascript:;" title="'+json.url+'"><span class="request-type" style="color:'+colors+'">'+json.requestType+'</span>'+json.url+'</a></div>';
 	}
 	html += '</div>';
 
@@ -258,10 +339,17 @@ var getHistoryByMember = function()
     }
   })
 }
-
-var openurl = function (param)
+/**
+ * 将数据加载到输入框
+ * @param  
+ * @return 
+ */
+var openurl = function (id)
 {
-	console.log(param);
+	res = getLocalData(id);
+	param = $.isEmptyObject(data = JSON.parse(res.param));
+	console.log(res);
+	
 }
 /**
  * 将获取到的单条数据格式化到表单中
@@ -304,20 +392,22 @@ var Saveas = function()
  * 将测试信息写入本地缓存
  * @param data 即将缓存的数据
  */
-function setStorage(str)
+function setStorage(data)
 {
-
-	str += "&time="+timestamp;
-	day = timeStamp2String(timestamp);
-	var dt = [];
-	res = localStorage.getItem('local_data_'+day);
-	if (!res) 
+	
+	obj = {};
+	jsonStr = localStorage.getItem('local_data_'+day);
+	
+	if (!jsonStr) 
 	{
+		str = JSON.stringify(data);
 		localStorage.setItem('local_data_'+day,str);
+
 	}else{
-		dt.push(res);
-		dt.unshift(str);
-		localStorage.setItem('local_data_'+day,dt);
-		//console.log(localStorage.getItem('local_data_'+day));
+		
+		str = JSON.stringify(data)+'|';
+		str += jsonStr;
+		localStorage.setItem('local_data_'+day,str);
 	}
+
 }
