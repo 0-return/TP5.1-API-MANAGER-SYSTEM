@@ -41,13 +41,13 @@ layui.use(['element', 'layer', 'form'], function(){
 		}
 	}
 
+	var id = '0';
 	//默认父选项卡
 	$(window).load(function(){
-		id = '0';
-		//id = $('.param-list-select li').index();
-		pl = $('.param-list-select li').parent().parent().find('.param-list-'+id+' li');
 		
-		if (pl.length != 0) 
+		id = $('.param-list-select li').index();
+		pl = $('.param-list-select li').parent().parent().find('.param-list-'+id+' li');
+		if (pl.length > 0) 
 		{
 			
 			n = pl.size();
@@ -67,7 +67,7 @@ layui.use(['element', 'layer', 'form'], function(){
 	   //初始话下级选项卡
 		pl = $(this).parent().parent().find('.param-list-'+id+' li');
 		//console.log(pl);
-		if (pl.length != 0) 
+		if (pl.length > 0) 
 		{
 			n = pl.size();
 			for (var i = 0; i < n; i++) {
@@ -81,7 +81,7 @@ layui.use(['element', 'layer', 'form'], function(){
 		}
 	});
 	
-
+	
 	//监听子选项卡
 	element.on('tab(param-list-1)', function(){
 	    id = this.getAttribute('data-id_1');
