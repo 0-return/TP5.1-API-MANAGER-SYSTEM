@@ -21,7 +21,7 @@
 		<div class="layui-fluid layui-full">
 			<!--左侧板块-->
 			<div class="layui-col-md2 layui-left"  style="border-right: 1px solid #DADBDC ;">
-				<input type="text" name="title" style="border-radius: 20px; width: 90%; margin-left: 15px;" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+				<input type="text" name="title" style="border-radius: 20px; width: 90%; margin-left: 15px;" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" >
 
 				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
 					<ul class="layui-tab-title">
@@ -81,13 +81,13 @@
 							<!--参数板块-->
 							<div class="layui-tab-item layui-show">
 								<div class="layui-col-md1 layui-form layui-form-pane">
-									<select name="requestType" lay-verify="required">
+									<select name="subtype" lay-verify="required">
 										<option value="GET">GET</option>
 										<option value="POST">POST</option>
 									</select>
 								</div>
 								<div class="layui-col-md8"><input type="text" name="url" required  lay-verify="required" placeholder="输入请求连接" autocomplete="off" class="layui-input" value="https://pay.sdian.net/api/merchant/my"></div>
-								<div class="layui-col-md2"><button style="margin-left:2px; " class="layui-btn layui-btn-normal" type="button" id="sub">请求</button></div>
+								<div class="layui-col-md2"><button style="margin-left:2px; "class="layui-btn layui-btn-normal" type="button" id="sub" >请求</button></div>
 							</div>
 
 							<div class="layui-col-md12" >
@@ -228,7 +228,7 @@
 																	<td colspan="3">
 																		<input type="text" name="description" required  lay-verify="required" placeholder="Description" autocomplete="off" class="layui-input">
 																		<td>
-																			<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut">
+																			<button style="display: none;" type="button" class="layui-btn layui-btn-sm param-list-delbut" >
 																				<i class="layui-icon">&#xe640;</i>
 																			</button>
 																		</td>
@@ -268,7 +268,7 @@
 													<div class="format-html"></div>
 												</div>
 												<div class="layui-tab-item">
-													<div class="format-json" id="json-target" style=" padding: 1px; white-space: pre-line;word-wrap:break-word;"></div>
+													<div class="format-json" id="json-target" style="white-space: pre-line;word-wrap:break-word;"></div>
 												</div>
 												<div class="layui-tab-item">
 													<textarea class="format-xml"></textarea>
@@ -284,9 +284,9 @@
 						<!--右侧板块-->
 					</div>
 				</div>
-<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/tool.js"></script>
+<!-- <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/tool.js"></script> -->
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/main.js"></script>
-<script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/localstorage.js"></script>
+<!-- <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/localstorage.js"></script> -->
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jsonlint.js"></script>
 <script type="text/javascript" src="{{$Think.config.global_constant['__PUBLIC_INDEX__']}}/js/jquery.json2xml.js"></script>
@@ -294,14 +294,8 @@
 
 <script type="text/javascript">
 
-$(function(){
-	getHistoryByUser();
-	renderLine();
-	$('.format-html').val('');		//默认数据
-	$('.format-json').html('');
-	$('.format-xml').html('');
-})
-
+renderLine();
+getHistoryByUser();
 //转json格式
 $('#format-html-json').click(function(){
 	

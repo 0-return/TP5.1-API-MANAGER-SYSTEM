@@ -28,7 +28,7 @@ class Index extends Init
     {
         
         $param = http_build_query(json_decode($data['param'],1));
-        if ($data['requestType'] == 'POST')
+        if ($data['subtype'] == 'POST')
         {
             $response = Curl($data['url'],$param,1);
         }else{

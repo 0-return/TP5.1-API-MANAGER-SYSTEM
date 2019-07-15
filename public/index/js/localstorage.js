@@ -33,7 +33,7 @@ function update_storage(key,value){
     	console.log('localStorage出错：'+e); 
     }
 }
-
+//获取
 function get_storage(key) {
 	try{
     	return localStorage.getItem("api_" + key);
